@@ -6,11 +6,12 @@ import { Session } from './session'
 
 type WithBuilderCB<T> = (b: IBuilder<T>) => IBuilder<T>
 
+// 
 export class Context {
   constructor(
-    protected session: Session,
-    protected request: RequestData,
-    protected response: ResponseData
+    protected session: Session, // almacenada en redis, sirve para recuperar los datos de la última vez
+    protected request: RequestData, // la llamada del cliente, UI -> BACK
+    protected response: ResponseData // BACK -> UI
   ) { }
 
   getSession(): Session {

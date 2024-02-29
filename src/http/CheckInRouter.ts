@@ -6,6 +6,7 @@ import FlowExecuter from '../checkin/services/flow/FlowExecuter'
 
 const CheckInRouter = Router()
 
+// Aqui tenemos dos endpoints
 CheckInRouter.post('/init', (httpRequest, httpResponse) => {
   const body: RequestData = httpRequest.body as RequestData
   new CheckinFlow(sessionManager).init(body)
@@ -16,6 +17,7 @@ CheckInRouter.post('/init', (httpRequest, httpResponse) => {
     })
 })
 
+// El back responde el siguiente paso por hacer
 CheckInRouter.post('/continue', (httpRequest, httpResponse) => {
   const body: RequestData = httpRequest.body as RequestData
   new CheckinFlow(sessionManager).checkIn(new FlowExecuter(), body)

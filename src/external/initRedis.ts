@@ -1,5 +1,5 @@
 import { createClient } from 'redis'
-
+// para conectarse a redis
 let CLIENT: ReturnType<typeof createClient> | null = null
 
 export const useRedisClient = async (): Promise<ReturnType<typeof createClient>> => {

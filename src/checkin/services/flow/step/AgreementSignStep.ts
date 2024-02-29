@@ -6,18 +6,26 @@ import StepTemplate from '../StepTemplate'
 
 export default class AgreementSignStep extends StepTemplate {
 
+  // Describe por cada uno de estos / para que sea más bonito
   when(context: Context): boolean {
+              //Si no es nulo devuelve su valor, sino false
+
     return !(context.getSession().data.agreementSigned ?? false)
   }
 
+   // Se va a ejecutar solo cuando esté firmado el agreememt
   onExecute(context: Context): Promise<boolean> {
     const session = context.getSession()
 
+    // revisa si la lo firmó, si no está lleno lo solicita
+    // si lo tiene que pedir
     if (!this.isAgreementFieldFilled(context)) {
       this.setRequestForAgreementField(context)
       return Promise.resolve(false)
     }
 
+    // Guardadlo en la sesión
+    // o si lo tiene que guardar
     this.setAgreementInfoInSession(context, session)
     return Promise.resolve(true)
   }

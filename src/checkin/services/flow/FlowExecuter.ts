@@ -2,8 +2,10 @@ import { Context } from '../../model/Context'
 import StepTemplate from './StepTemplate'
 
 // Using chain of responsability
+// es el orquestador
 export default class FlowExecuter {
 
+  // tiene la lista ligada
   protected readonly steps: StepTemplate[] = []
 
   and(step: StepTemplate): FlowExecuter {

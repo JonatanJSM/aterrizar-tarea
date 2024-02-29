@@ -1,7 +1,7 @@
 import { CountryCode } from '../Schema'
 
 export interface FlightData {
-  flightNumber: string
+  flightNumber: string 
   price: number
   from: Airport
   to: Airport
@@ -10,4 +10,8 @@ export interface FlightData {
 export interface Airport {
   name: string
   country: CountryCode
+}
+export interface seatInformation{
+  seatNumber: string // a este 
+  flight: string
 }
