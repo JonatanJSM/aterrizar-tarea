@@ -5,6 +5,7 @@ import AgreementSignStep from './flow/step/AgreementSignStep'
 import CompleteCheckinStep from './flow/step/CompleteCheckinStep'
 import PassportInformationStep from './flow/step/PassportInformationStep'
 import ValidateSessionStep from './flow/step/ValidateSessionStep'
+import RequestSeatsStep from './flow/step/RequestSeatsStep'
 
 export default class CheckinFlow extends FlowStrategy {
 
@@ -12,6 +13,8 @@ export default class CheckinFlow extends FlowStrategy {
     flowExecuter
       .and(new ValidateSessionStep())
       .and(new PassportInformationStep())
+      .and(new RequestSeatsStep())
+      // Next seats step
       .and(new AgreementSignStep())
       .and(new CompleteCheckinStep())
 
