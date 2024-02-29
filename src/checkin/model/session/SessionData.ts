@@ -1,6 +1,5 @@
 import { CountryCode } from '../Schema'
-import { FlightData } from './FlightData'
-import { seatInformation } from './FlightData'
+import { FlightData, seatInformation } from './FlightData'
 
 export interface SessionData {
   country: CountryCode

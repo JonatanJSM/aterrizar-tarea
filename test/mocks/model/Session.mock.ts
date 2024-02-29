@@ -34,11 +34,11 @@ const MOCK_SESSION: Session = {
         }
       }
     ],
-    seats:[
+    seats: [
       {
-        seatNumber: "1",
-        flight: "ABC123"
-      },
+        seatNumber: '1',
+        flight: 'ABC123'
+      }
     ],
     passengers: 1
   },

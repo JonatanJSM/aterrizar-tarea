@@ -6,7 +6,6 @@ import { Session } from './session'
 
 type WithBuilderCB<T> = (b: IBuilder<T>) => IBuilder<T>
 
-// 
 export class Context {
   constructor(
     protected session: Session, // almacenada en redis, sirve para recuperar los datos de la última vez

@@ -8,12 +8,11 @@ export default class AgreementSignStep extends StepTemplate {
 
   // Describe por cada uno de estos / para que sea más bonito
   when(context: Context): boolean {
-              //Si no es nulo devuelve su valor, sino false
-
+    // Si no es nulo devuelve su valor, sino false
     return !(context.getSession().data.agreementSigned ?? false)
   }
 
-   // Se va a ejecutar solo cuando esté firmado el agreememt
+  // Se va a ejecutar solo cuando esté firmado el agreememt
   onExecute(context: Context): Promise<boolean> {
     const session = context.getSession()
 
