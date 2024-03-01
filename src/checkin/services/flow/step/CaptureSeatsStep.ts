@@ -9,24 +9,31 @@ export default class RequestSeatsStep extends StepTemplate {
 
   onExecute(context: Context): Promise<boolean> {
     const session = context.getSession()
-    if (!session.data.seats || session.data.seats.length === 0) {
+    const requestData = context.getRequest()
+    const amountSeats = requestData.fields?.seats_required as number
+
+    if (amountSeats !== requestData.seat.length) {
       context = context.withResponseBuilder((responseBuilder) => responseBuilder
         .status('seats_assignation_required')
-        .requiredFiles({ seats_required: null }))
+        .requiredFiles({ seats_required: null })
+      )
       return Promise.resolve(false)
     }
 
-    if (session.data.seats.length !== (session.data.passengers * session.data.flights.length)) {
-      this.rejectRequest(context)
-      return Promise.resolve(false)
-    }
+    context = context.withSessionBuilder((sessionBuilder) => sessionBuilder
+      .data({
+        ...session.data,
+        seats: [
+          ...session.data.seats,
+          ...requestData.seat?.map(seat => ({
+            seatNumber: seat.seatNumber,
+            flight: seat.flight
+          }))
+        ]
+      })
+    )
+
     return Promise.resolve(true)
   }
 
-  private rejectRequest(context: Context): Context {
-    return context.withResponseBuilder(
-      (responseBulder) => responseBulder
-        .status('rejected')
-    )
-  }
 }
