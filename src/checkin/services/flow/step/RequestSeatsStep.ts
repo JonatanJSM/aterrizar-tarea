@@ -1,4 +1,3 @@
-
 import { Context } from '../../../model/Context'
 import StepTemplate from '../StepTemplate'
 

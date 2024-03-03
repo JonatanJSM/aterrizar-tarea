@@ -23,6 +23,7 @@ describe('[ Services / CheckInFlow ]', () => {
       'ValidateSessionStep',
       'PassportInformationStep',
       'RequestSeatsStep',
+      'CaptureSeatsStep',
       'AgreementSignStep',
       'CompleteCheckinStep'
     ]
@@ -31,7 +32,7 @@ describe('[ Services / CheckInFlow ]', () => {
 
     await checkinFlow.checkIn(flowExecuterMock, requestData)
 
-    expect(flowExecuterMock.and).toHaveBeenCalledTimes(5)
+    expect(flowExecuterMock.and).toHaveBeenCalledTimes(6)
     expect(flowExecuterMock.getStepsExecution()).toEqual(expectedSteps)
   })
 })
