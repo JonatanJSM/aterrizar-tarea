@@ -1,7 +1,7 @@
 import { Context } from '../../../model/Context'
 import StepTemplate from '../StepTemplate'
 
-export default class RequestSeatsStep extends StepTemplate {
+export default class CaptureSeatsStep extends StepTemplate {
   when(context: Context): boolean {
     const session = context.getSession()
     return session.data.seats && session.data.seats.length === 0
@@ -12,7 +12,7 @@ export default class RequestSeatsStep extends StepTemplate {
     const requestData = context.getRequest()
     const amountSeats = requestData.fields?.seats_required as number
 
-    if (amountSeats !== requestData.seat.length) {
+    if (amountSeats !== requestData?.seat?.length) {
       context = context.withResponseBuilder((responseBuilder) => responseBuilder
         .status('seats_assignation_required')
         .requiredFiles({ seats_required: null })
@@ -20,19 +20,20 @@ export default class RequestSeatsStep extends StepTemplate {
       return Promise.resolve(false)
     }
 
+    const seats = requestData.seat?.map(seat => ({
+      seatNumber: seat.seatNumber,
+      flight: seat.flight
+    }))
+
     context = context.withSessionBuilder((sessionBuilder) => sessionBuilder
       .data({
         ...session.data,
         seats: [
           ...session.data.seats,
-          ...requestData.seat?.map(seat => ({
-            seatNumber: seat.seatNumber,
-            flight: seat.flight
-          }))
+          ...seats
         ]
       })
     )
-
     return Promise.resolve(true)
   }
 

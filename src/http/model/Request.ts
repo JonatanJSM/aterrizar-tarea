@@ -10,5 +10,5 @@ export interface RequestData {
   flightNumbers: string[]
   passengers: number
   fields?: Partial<Record<RequiredField, unknown>>
-  seat: seatInformation[]
+  seat?: seatInformation[]
 }
