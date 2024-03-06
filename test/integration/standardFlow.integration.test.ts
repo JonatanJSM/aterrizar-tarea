@@ -30,14 +30,15 @@ describeFlowTest('Testing Standard checkin Flow', (app) => {
     let response = await userInteraction.continue(app, sessionInformation)
 
     response = await userInteraction.captureSeats(app, sessionInformation)
-    verify.userInformation.requiredField('seats_required', response)
+    verify.userInformation.requiredSeatsAssignation('seats_required', response)
 
   })
 
   it('should be asked to sign the legal agreement before completing the check in', async () => {
     const sessionId = await userInteraction.initSessionWithPassport(app, country)
-
     const response = await userInteraction.continue(app, { sessionId, country })
+    //let response = await userInteraction.continue(app, { sessionId, country })
+    //response = await userInteraction.captureSeats(app, { sessionId, country })
     verify.userInformation.requiredField('agreement_required', response)
   })
 
