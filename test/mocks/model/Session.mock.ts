@@ -38,6 +38,10 @@ const MOCK_SESSION: Session = {
       {
         seatNumber: '1',
         flight: 'ABC123'
+      },
+      {
+        seatNumber: '1',
+        flight: 'XYZ456'
       }
     ],
     passengers: 1
