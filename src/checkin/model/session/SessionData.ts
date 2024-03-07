@@ -6,5 +6,5 @@ export interface SessionData {
   flights: FlightData[]
   passengers: number
   agreementSigned?: boolean
-  seats: seatInformation[]
+  seats?: seatInformation[]
 }
