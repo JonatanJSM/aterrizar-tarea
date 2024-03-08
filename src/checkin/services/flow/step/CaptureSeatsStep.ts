@@ -1,10 +1,12 @@
 import { Context } from '../../../model/Context'
+import { Builder } from 'builder-pattern'
+import { SessionData } from '../../../model/session/SessionData'
 import StepTemplate from '../StepTemplate'
 
 export default class CaptureSeatsStep extends StepTemplate {
   when(context: Context): boolean {
     const session = context.getSession()
-    return session.data.seats?.length === 0 ?? false
+    return (!session.data.seats ?? false)
   }
 
   onExecute(context: Context): Promise<boolean> {
@@ -26,13 +28,11 @@ export default class CaptureSeatsStep extends StepTemplate {
     }))
 
     context = context.withSessionBuilder((sessionBuilder) => sessionBuilder
-      .data({
-        ...session.data,
-        seats: [
-          ...(session.data.seats ?? []),
-          ...seats
-        ]
-      })
+      .data(
+        Builder<SessionData>(session.data)
+          .seats(seats)
+          .build()
+      )
     )
     return Promise.resolve(true)
   }

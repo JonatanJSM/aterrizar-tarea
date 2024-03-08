@@ -9,17 +9,7 @@ const MOCKED_REQUEST_DATA: RequestData = {
   email: 'user@checkin.com',
   passengers: 1,
   flightNumbers: ['123', '123'],
-  fields: {},
-  seat: [
-    {
-      seatNumber: '1',
-      flight: 'ABC123'
-    },
-    {
-      seatNumber: '1',
-      flight: 'XYZ456'
-    }
-  ]
+  fields: {}
 }
 
 const generateRequestDataMock = (mockedData?: Partial<RequestData>): RequestData => {
@@ -39,7 +29,7 @@ const generateRequestDataMock = (mockedData?: Partial<RequestData>): RequestData
       .userId(mockedData.userId ?? MOCKED_REQUEST_DATA.userId)
       .flightNumbers(mockedData.flightNumbers ?? MOCKED_REQUEST_DATA.flightNumbers)
       .fields(mockedData.fields ?? MOCKED_REQUEST_DATA.fields)
-    // .seat(mockedData.seat ?? MOCKED_REQUEST_DATA.seat)
+      .seat(mockedData.seat ?? MOCKED_REQUEST_DATA.seat)
   }
 
   return builder.build()
