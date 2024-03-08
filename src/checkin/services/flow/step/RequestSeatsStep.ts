@@ -4,7 +4,7 @@ import StepTemplate from '../StepTemplate'
 export default class RequestSeatsStep extends StepTemplate {
   when(context: Context): boolean {
     const session = context.getSession()
-    return session.data.seats && session.data.seats.length === 0
+    return session.data.seats?.length === 0 ?? false
   }
 
   onExecute(context: Context): Promise<boolean> {
