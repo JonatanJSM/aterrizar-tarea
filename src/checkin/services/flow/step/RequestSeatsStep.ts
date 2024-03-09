@@ -1,4 +1,5 @@
 import { Context } from '../../../model/Context'
+import { Session } from '../../../model/session'
 import StepTemplate from '../StepTemplate'
 
 export default class RequestSeatsStep extends StepTemplate {
@@ -9,14 +10,14 @@ export default class RequestSeatsStep extends StepTemplate {
 
   onExecute(context: Context): Promise<boolean> {
     const session = context.getSession()
-    if (!session.data.seats || session.data.seats.length === 0) {
+    if (this.areSeatsMissing(session)) {
       context = context.withResponseBuilder((responseBuilder) => responseBuilder
         .status('seats_assignation_required')
         .requiredFiles({ seats_required: null }))
       return Promise.resolve(false)
     }
 
-    if (session.data.seats.length !== (session.data.passengers * session.data.flights.length)) {
+    if (!this.areSeatsAssignedCorrectly(session)) {
       this.rejectRequest(context)
       return Promise.resolve(false)
     }
@@ -29,4 +30,13 @@ export default class RequestSeatsStep extends StepTemplate {
         .status('rejected')
     )
   }
+
+  private areSeatsMissing(session: Session): boolean {
+    return !session.data.seats || session.data.seats.length === 0
+  }
+
+  private areSeatsAssignedCorrectly(session: Session): boolean {
+    return session.data.seats?.length !== (session.data.passengers * session.data.flights.length)
+  }
+
 }
