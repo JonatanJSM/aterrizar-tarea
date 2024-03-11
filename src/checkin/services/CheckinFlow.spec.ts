@@ -31,8 +31,8 @@ describe('[ Services / CheckInFlow ]', () => {
     jest.spyOn(flowExecuterMock, 'and')
 
     await checkinFlow.checkIn(flowExecuterMock, requestData)
-
-    expect(flowExecuterMock.and).toHaveBeenCalledTimes(6)
+    const expectedNumberOfAddedSteps = expectedSteps.length
+    expect(flowExecuterMock.and).toHaveBeenCalledTimes(expectedNumberOfAddedSteps)
     expect(flowExecuterMock.getStepsExecution()).toEqual(expectedSteps)
   })
 })

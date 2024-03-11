@@ -1,7 +1,7 @@
 import { MockContext } from '@testMocks/model/Context.mock'
 import RequestSeatsStep from './RequestSeatsStep'
 import { Context } from '../../../model/Context'
-import { seatInformation } from '../../../model/session/FlightData'
+import { SeatInformation } from '../../../model/session/FlightData'
 
 describe('[ Step / RequestSeatsStep ]', () => {
   const step = new RequestSeatsStep()
@@ -42,7 +42,7 @@ describe('[ Step / RequestSeatsStep ]', () => {
   })
 })
 
-function wireContextMockWithSeatsInSession(seatsSigned: seatInformation[]): Context {
+function wireContextMockWithSeatsInSession(seatsSigned: SeatInformation[]): Context {
   const context: Context = new MockContext()
   context.withSessionBuilder(sessionBuilder => sessionBuilder
     .data({

@@ -1,14 +1,13 @@
 import { MockContext } from '@testMocks/model/Context.mock'
 import { Context } from '../../../model/Context'
 import CaptureSeatsInfoStep from './CaptureSeatsStep'
-import { seatInformation } from '../../../model/session/FlightData'
+import { SeatInformation } from '../../../model/session/FlightData'
 
 describe('[ Step / CapturetSeatsStep ]', () => {
   const step = new CaptureSeatsInfoStep()
 
   describe('Test when it should be execute', () => {
-
-    it('should return true when requesData.seats.length is equals to seats_required field', () => {
+    it('should return true when the number of assigned seats is equal to the number of required assigned seats', () => {
       const context: Context = new MockContext()
       context.withRequestBuilder(requestBuilder => requestBuilder
         .fields({ seats_required: 1 })
@@ -16,7 +15,7 @@ describe('[ Step / CapturetSeatsStep ]', () => {
       expect(context.getRequest().seat?.length).toBe(context.getRequest().fields?.seats_required as number)
     })
 
-    it('should return true when requestData.seats is send to session', async () => {
+    it('should return true when the seats that were assigned are sent to the session.', async () => {
       const context: Context = wireContextMock([])
       const response = await step.onExecute(context)
 
@@ -26,7 +25,7 @@ describe('[ Step / CapturetSeatsStep ]', () => {
   })
 })
 
-function wireContextMock(seatsSigned: seatInformation[]): Context {
+function wireContextMock(seatsSigned: SeatInformation[]): Context {
   const context: Context = new MockContext()
   context.withSessionBuilder(sessionBuilder => sessionBuilder
     .data({

@@ -11,7 +11,7 @@ export interface Airport {
   name: string
   country: CountryCode
 }
-export interface seatInformation {
+export interface SeatInformation {
   seatNumber: string
   flight: string
 }
