@@ -23,6 +23,28 @@ describeFlowTest('Testing Standard checkin Flow', (app) => {
     verify.userInformation.requiredField('passport_number', response)
   })
 
+  it('should reject if no seats are provided', async () => {
+    const userId = '123'
+    const sessionId = await userInteraction.initSession(app, country, { userId })
+    const sessionInformation = { sessionId, country }
+
+    let response = await userInteraction.continue(app, sessionInformation)
+    response = await userInteraction.requestSeats(app, sessionInformation)
+
+    verify.status.rejected(response)
+  })
+
+  it('should reject if seats are not assigned correctly', async () => {
+    const userId = '123'
+    const sessionId = await userInteraction.initSession(app, country, { userId })
+    const sessionInformation = { sessionId, country }
+
+    let response = await userInteraction.continue(app, sessionInformation)
+    response = await userInteraction.requestSeats(app, sessionInformation)
+
+    verify.status.rejected(response)
+  })
+
   it('should have captured the seats before signing the legal agreement ', async () => {
     const sessionId = await userInteraction.initSessionWithPassport(app, country)
     const sessionInformation = { sessionId, country }
